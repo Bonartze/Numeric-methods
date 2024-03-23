@@ -3,7 +3,7 @@
 #include <cmath>
 
 using namespace std;
-double epsilon = 0.01;
+double epsilon = 0.0000000001;
 
 class VibrationMethod {
 private:
@@ -55,9 +55,8 @@ public:
         vector<vector<double>> q(matrix.size(), vector<double>(matrix.size(), 0.0));
         for (size_t i = 0; i < matrix.size(); ++i)
             q[i][i] = 1.0;
-
-        double norm = get_norm(matrix);
-        while (norm > epsilon) {
+        bool flag = true;
+        while (flag) {
             auto a = matrix[0][1];
             auto positions = make_pair(0, 1);
             for (size_t i = 0; i < matrix.size(); i++) {
@@ -83,11 +82,16 @@ public:
                 J[i][i] = 1.0;
             J[positions.second][positions.second] = c;
             J[positions.first][positions.first] = c;
-            J[positions.first][positions.second] = s;
-            J[positions.second][positions.first] = -s;
+            J[positions.first][positions.second] = -s;
+            J[positions.second][positions.first] = s;
             matrix = multiply_matrices(multiply_matrices(transposed_matrix(J), matrix), J);
             q = multiply_matrices(q, J);
-            norm = get_norm(matrix);
+            flag = false;
+            for (size_t i = 0; i < matrix.size(); i++)
+                for (size_t j = 0; j < matrix.size(); j++) {
+                    if (i != j && matrix[i][j] > fabs(epsilon))
+                        flag = true;
+                }
         }
         return make_pair(matrix, q);
     }
