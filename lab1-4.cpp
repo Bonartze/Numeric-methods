@@ -62,7 +62,7 @@ public:
             for (size_t i = 0; i < matrix.size(); i++) {
                 for (size_t j = i + 1; j < matrix.size(); j++) {
                     if (fabs(a) < fabs(matrix[i][j])) {
-                        a = fabs(matrix[i][j]);
+                        a = matrix[i][j];
                         positions = make_pair(i, j);
                     }
                 }
@@ -87,11 +87,8 @@ public:
             matrix = multiply_matrices(multiply_matrices(transposed_matrix(J), matrix), J);
             q = multiply_matrices(q, J);
             flag = false;
-            for (size_t i = 0; i < matrix.size(); i++)
-                for (size_t j = 0; j < matrix.size(); j++) {
-                    if (i != j && matrix[i][j] > fabs(epsilon))
-                        flag = true;
-                }
+            if (fabs(a) > epsilon)
+                flag = true;
         }
         return make_pair(matrix, q);
     }
