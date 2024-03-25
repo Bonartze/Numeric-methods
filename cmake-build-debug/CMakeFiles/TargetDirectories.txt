@@ -1,3 +1,0 @@
-/home/ivan/Desktop/Numeric-methods_/cmake-build-debug/CMakeFiles/Numeric_methods_.dir
-/home/ivan/Desktop/Numeric-methods_/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/ivan/Desktop/Numeric-methods_/cmake-build-debug/CMakeFiles/rebuild_cache.dir
