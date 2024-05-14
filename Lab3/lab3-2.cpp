@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 
@@ -74,11 +75,21 @@ public:
         double dx = val_x - x[i - 1];
         return a[i] + b[i] * dx + c[i - 1] * dx * dx + d[i] * dx * dx * dx;
     }
+
+    void print_spline() {
+        cout << "Spline coefficients:" << endl;
+        cout << "i\t[xi-1, xi]\t\t\ta[i]\tb[i]\tc[i]\td[i]" << endl;
+        for (size_t i = 1; i < x.size(); ++i) {
+            cout << i << "\t" << "[" << x[i - 1] << "," << x[i] << "]\t" << a[i] << "\t" << b[i] << "\t" << c[i - 1]
+                 << "\t" << d[i] << endl;
+        }
+    }
 };
 
 int main() {
     CubedSpline cb;
     cout.precision(5);
-    cout << fixed << cb.f_cubed(0.1) << endl;
+    cout << fixed << "f(0.1) = " << cb.f_cubed(0.1) << endl;
+    cb.print_spline();
     return 0;
 }
