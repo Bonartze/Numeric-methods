@@ -23,6 +23,10 @@ public:
                                                 {sum_xy}};
         LU_Decomposition lu(matrix, matrix_result);
         auto x_polynome = lu.solve();
+
+        // Output the polynomial coefficients
+        cout << "Linear Polynomial: y = " << x_polynome[0] << " + " << x_polynome[1] << "x" << endl;
+
         double phi = 0.0;
         for (size_t i = 0; i < x.size(); i++)
             phi += (x_polynome[0] + x_polynome[1] * x[i] - f[i]) * (x_polynome[0] + x_polynome[1] * x[i] - f[i]);
@@ -48,6 +52,10 @@ public:
                                                 {sum_y_x2}};
         LU_Decomposition lu(matrix, matrix_result);
         auto x_polynome = lu.solve();
+
+        // Output the polynomial coefficients
+        cout << "Quadratic Polynomial: y = " << x_polynome[0] << " + " << x_polynome[1] << "x + " << x_polynome[2] << "x^2" << endl;
+
         double phi = 0.0;
         for (size_t i = 0; i < x.size(); i++)
             phi += (x_polynome[0] + x_polynome[1] * x[i] + x_polynome[2] * x[i] * x[i] - f[i]) *
@@ -59,6 +67,6 @@ public:
 
 int main() {
     MNS ms;
-    cout << ms.error_sum_sq_1();
-    cout << ms.error_sum_sq_2();
+    cout << "Error Sum of Squares for Linear Polynomial: " << ms.error_sum_sq_1() << endl;
+    cout << "Error Sum of Squares for Quadratic Polynomial: " << ms.error_sum_sq_2() << endl;
 }
