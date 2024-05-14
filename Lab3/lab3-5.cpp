@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+
 using namespace std;
 
 class IntegralCalculation {
@@ -10,7 +11,7 @@ private:
     double h2 = 0.5;
 
     double f(double x) {
-        return 1/(x*x+4);
+        return 1 / (x * x + 4);
     }
 
 public:
@@ -52,14 +53,29 @@ public:
         return {res1, res2};
     }
 
-    double RungeRombergRichardson() {
-        auto [I_h1, I_h2] = SimpsonMethod();
-        return I_h1 + (I_h1 - I_h2) / (0.17 - 1);
+    double RungeRombergRichardson(pair<double, double> results, int n) {
+        double I_h1 = results.first;
+        double I_h2 = results.second;
+        return I_h2 + (I_h2 - I_h1) / (pow(2, n) - 1);
     }
-
 };
 
 int main() {
     IntegralCalculation it;
-    cout << it.RungeRombergRichardson();
+
+    auto squareResults = it.SquareMethod();
+    double squareRRR = it.RungeRombergRichardson(squareResults, 2);
+
+    auto trapResults = it.TrapMethod();
+    double trapRRR = it.RungeRombergRichardson(trapResults, 2);
+
+    auto simpsonResults = it.SimpsonMethod();
+    double simpsonRRR = it.RungeRombergRichardson(simpsonResults, 4);
+
+    cout << "Square Method: " << squareResults.first << ", " << squareResults.second << " | RRR: " << squareRRR << endl;
+    cout << "Trap Method: " << trapResults.first << ", " << trapResults.second << " | RRR: " << trapRRR << endl;
+    cout << "Simpson Method: " << simpsonResults.first << ", " << simpsonResults.second << " | RRR: " << simpsonRRR
+         << endl;
+
+    return 0;
 }
