@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include <utility>
-#include <functional>
 
 using namespace std;
 
@@ -29,7 +28,7 @@ private:
     }
 
 public:
-    void Newton() {
+    void EulerMethod() {
         double x0 = 0;
         double h = 0.1;
         double x_last = 1;
@@ -45,19 +44,18 @@ public:
             double error = compute_error(y, exact_y);
             if (x <= x_last)
                 cout << "x: " << x << ", y: " << y << ", y\' " << z_s << ", exact y: " << exact_y << ", error: "
-                     << error
-                     << endl;
+                     << error << endl;
         }
     }
 
-    pair<vector<double>, vector<double>> Runge_Kutte(double h) {
+    pair<vector<double>, vector<double>> RungeKutta(double h) {
         double x0 = 0;
         double x_last = 1;
         double x = x0;
         double z = 0, y = 1;
         vector<double> adams_y, adams_z;
-        adams_y.push_back(0);
-        adams_z.push_back(1);
+        adams_y.push_back(y);
+        adams_z.push_back(z);
         int i = 0;
         while (x < x_last) {
             double K1_y = h * g(z);
@@ -95,7 +93,7 @@ public:
         double h = 0.1;
         double x0 = 0;
         double x_last = 1;
-        auto [y, z] = Runge_Kutte(h);
+        auto [y, z] = RungeKutta(h);
         vector<double> adams_y(y.begin(), y.end());
         vector<double> adams_z(z.begin(), z.end());
         double x = x0 + 4 * h;
@@ -125,24 +123,21 @@ public:
             if (x <= x_last)
                 cout << "x: " << x << ", y: " << y_next << ", y': " << z_next << ", exact y: " << exact_y << ", error: "
                      << error << endl;
-
-
         }
     }
 
-    void Runge_Romberg_Richardson_Comparison() {
+    void RungeRombergRichardsonComparison() {
         double h = 0.1;
-        double h2 = 2 * h;
+        double h2 = 0.2; // This should be twice the step size h
 
-        auto [yh_vec, _] = Runge_Kutte(h);
+        auto [yh_vec, _] = RungeKutta(h);
         double yh = yh_vec.back();
 
-        auto [y2h_vec, _2] = Runge_Kutte(h2);
+        auto [y2h_vec, _2] = RungeKutta(h2);
         double y2h = y2h_vec.back();
 
         double exact_y = exact_solution(1);
 
-        // Runge-Romberg-Richardson approximation
         double rrr_approx = runge_romberg_richardson(yh, y2h, 4);
 
         double rrr_error = compute_error(rrr_approx, exact_y);
@@ -155,15 +150,15 @@ public:
 int main() {
     du_methods du;
 
-    cout << "Newton Method:\n";
-    du.Newton();
+    cout << "Euler Method:\n";
+    du.EulerMethod();
 
     cout << "\nRunge-Kutta Method:\n";
-    du.Runge_Kutte(0.1);
+    du.RungeKutta(0.1);
 
     cout << "\nAdams Method:\n";
     du.Adams();
 
     cout << "\nRunge-Romberg-Richardson Comparison:\n";
-    du.Runge_Romberg_Richardson_Comparison();
+    du.RungeRombergRichardsonComparison();
 }
