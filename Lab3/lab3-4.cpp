@@ -6,8 +6,8 @@ using namespace std;
 
 class Diff {
 private:
-    vector<double> x = {0.0, 0.1, 0.2, 0.3, 0.4};
-    vector<double> f = {1.0, 1.1052, 1.2214, 1.3499, 1.4918};
+    vector<double> x = {-1, 0, 1, 2, 3};
+    vector<double> f = {-0.7854, 0, 0.78540, 1.1071, 1.249};
 public:
     double get_first_diff_second_accuracy_left(double val) {
         size_t i;

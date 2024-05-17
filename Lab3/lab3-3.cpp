@@ -4,6 +4,9 @@
 
 using namespace std;
 
+/*для талично заданной функции путем решения нормальной системы МНК найти приближающие многочлены 1-ой
+и 2-ой степени. Для каждого из приближающих многочленов вычислить сумму квадратов
+ошибок. Построить графики приближаемой функции и приближающих многочленов.*/
 class MNS {
 private:
     vector<double> x = {-0.7, -0.4, -0.1, 0.2, 0.5, 0.8};
@@ -54,7 +57,8 @@ public:
         auto x_polynome = lu.solve();
 
         // Output the polynomial coefficients
-        cout << "Quadratic Polynomial: y = " << x_polynome[0] << " + " << x_polynome[1] << "x + " << x_polynome[2] << "x^2" << endl;
+        cout << "Quadratic Polynomial: y = " << x_polynome[0] << " + " << x_polynome[1] << "x + " << x_polynome[2]
+             << "x^2" << endl;
 
         double phi = 0.0;
         for (size_t i = 0; i < x.size(); i++)

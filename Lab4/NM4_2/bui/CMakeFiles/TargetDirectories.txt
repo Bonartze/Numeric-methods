@@ -1,0 +1,3 @@
+/home/ivan/CLionProjects/Numeric-methods/Lab4/NM4_2/bui/CMakeFiles/NM4_2.dir
+/home/ivan/CLionProjects/Numeric-methods/Lab4/NM4_2/bui/CMakeFiles/edit_cache.dir
+/home/ivan/CLionProjects/Numeric-methods/Lab4/NM4_2/bui/CMakeFiles/rebuild_cache.dir

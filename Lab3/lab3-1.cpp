@@ -6,7 +6,9 @@
 #include <iterator>
 
 using namespace std;
-
+/*Недостатком интерполяционного многочлена Лагранжа является необходимость
+полного пересчета всех коэффициентов в случае добавления дополнительных
+интерполяционных узлов*/
 class InterpolationPolinomsLagrange {
 private:
     const vector<double> x_ = {-0.4, -0.1, 0.2, 0.5};
@@ -64,7 +66,7 @@ class list_index : public list<double> {
 public:
     list_index(std::initializer_list<double> init) : std::list<double>(init) {}
 
-    template<typename Iter>
+    template <typename Iter>
     list_index(Iter begin, Iter end) : std::list<double>(begin, end) {}
 
     double &operator[](size_t i) {
